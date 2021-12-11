@@ -49,7 +49,7 @@ class FileSource(DataSource):
     def getRAMUsage(self):
         return 50.0
 
-class SensorSource(DataSource):
+class SensorSource(DataSource, sensor1_address=0x48, sensor2_address=0x49):
     def __init__(self):
         self.i2c = busio.I2C(board.SCL, board.SDA)
         self.ads1 = ADS.ADS1115(self.i2c, address=0x48)
