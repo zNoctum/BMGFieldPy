@@ -52,7 +52,7 @@ class FileSource(DataSource):
 class SensorSource(DataSource):
     def __init__(self):
         self.i2c = busio.I2C(board.SCL, board.SDA)
-        self.ads1 = ADS.ADS1115(i2c, address=0x48)
+        self.ads1 = ADS.ADS1115(self.i2c, address=0x48)
         self.ads1 = ADS.ADS1115(i2c, address=0x49)
 
     def getMGField1(self):
