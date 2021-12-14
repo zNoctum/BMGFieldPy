@@ -3,8 +3,6 @@ import logging
 import os
 from abc import ABC, abstractmethod
 
-HEADER = ["Date", "Time", "MGField Value1","MGField Value2", "Temperature", "Ram-Available"]
-
 class Logger(object):
     @abstractmethod
     def __init__(self, filename: str):
@@ -16,17 +14,21 @@ class Logger(object):
 
 class CSVLogger(Logger):
     file = None
-    def __init__(self, filename: str, seperator=",", newline="\n", header=HEADER):
+    def __init__(self, filename: str, seperator=",", newline="\n", mgfields=2):
         logging.info("Using CSV Dataformat (seperator=\"%s\", newline=\"%s\")", seperator, util.printSpecialChars(newline))
         logging.info("Output File: %s", filename)
+        self.filename = filename
         self.seperator = seperator
         self.newline = newline
-        self.file = open(filename, 'a+')
+        path = os.path.split(filename)[0]
+        if not os.path.exists(path):
+            os.makedirs(path)
+        open(filename, "a+").close()
         if os.path.getsize(filename) == 0:
-            self.write(header)
+            mgfields = ["MGField" + str(i + 1) for i in range(mgfields)]
+            self.write(["Date", "Time"] + mgfields + ["Temperature", "Ram-Ava, mgfields=2ilable"])
 
     def write(self, data):
-        self.file.write(self.seperator.join([str(item) for item in data]) + self.newline)
-
-    def __del__(self):
-        self.file.close()
+        logging.debug("Wrote %s to %s", str(data), self.filename)
+        with open(self.filename, "a+") as f:
+            f.write(self.seperator.join([str(item) for item in data]) + self.newline)

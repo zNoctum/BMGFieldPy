@@ -4,7 +4,7 @@ file_prefix = util.getFilePrefix()
 
 import sys
 import logging
-logging.basicConfig(filename="log/" + file_prefix + ".log", level=logging.INFO)
+logging.basicConfig(filename="log/" + file_prefix + ".log", encoding="utf-8", level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 from datasource import *
@@ -13,6 +13,6 @@ import bmgfield
 
 logging.info("Started BMGFieldPy")
 bmgfield.start(
-    Source(SensorSource("28-01204b515089", addr=[0x48]), cycles=150, cycle_length=0.5),
+    Source(FileSource("data.txt"), cycles=1, cycle_length=0.5),
     CSVLogger("csv/" + file_prefix + ".csv")
 )
