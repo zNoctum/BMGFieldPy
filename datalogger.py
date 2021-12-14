@@ -1,3 +1,5 @@
+import util
+import logging
 import os
 from abc import ABC, abstractmethod
 
@@ -15,6 +17,8 @@ class Logger(object):
 class CSVLogger(Logger):
     file = None
     def __init__(self, filename: str, seperator=",", newline="\n", header=HEADER):
+        logging.info("Using CSV Dataformat (seperator=\"%s\", newline=\"%s\")", seperator, util.printSpecialChars(newline))
+        logging.info("Output File: %s", filename)
         self.seperator = seperator
         self.newline = newline
         self.file = open(filename, 'a+')
