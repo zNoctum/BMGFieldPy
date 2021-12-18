@@ -13,6 +13,6 @@ import bmgfield
 
 logging.info("Started BMGFieldPy")
 bmgfield.start(
-    Source(SensorSource("28-01204b515089", addr=[0x48]), cycles=150, cycle_length=0.5),
+    Source(SensorSource("28-01204b515089", addrs=[0x48]), cycles=150, cycle_length=0.5),
     CSVLogger("csv/" + file_prefix + ".csv")
 )
