@@ -51,6 +51,7 @@ class SensorSource(DataSource):
 
     def __init__(self, temp_id: str, addrs=[0x48]):
         logging.info("Using Sensorsource (addrs: %s)", str(addrs))
+        self.temp_id = temp_id
         self.i2c = busio.I2C(board.SCL, board.SDA)
         for addr in addrs:
             self.ads.append(ADS.ADS1115(self.i2c, address=addr))
