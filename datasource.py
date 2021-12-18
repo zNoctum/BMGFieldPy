@@ -54,7 +54,7 @@ class SensorSource(DataSource):
         self.i2c = busio.I2C(board.SCL, board.SDA)
         for addr in addrs:
             self.ads.append(ADS.ADS1115(self.i2c, address=addr))
-        self.mgfields = len(ads)
+        self.mgfields = len(self.ads)
 
     def getMGField(self, i: int):
         x = AnalogIn(self.ads[i], ADS.P0)
